@@ -1,11 +1,12 @@
-
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
-  <meta charset="utf-8">
   <title>Helpinghands</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    console.log(localStorage);
+  </script>
   <style>
     .spinner-wrapper {
       position: fixed;
@@ -50,6 +51,8 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
   your browser</a> to improve your experience and security.</p>
 <![endif]-->
+<p>You are logged in as: </p>
+<strong><?php echo "<script type='text/javascript'> document.write(localStorage.getItem('username')); </script>";?></strong>
 <header class="background-header">
 
   <div class="topbar">
@@ -123,6 +126,7 @@
   </div>
 </header>
 <div class="content">
+
   <!--hero banner section-->
   <div class="hero-homepage">
     <div class="container wrapping-content">
@@ -150,6 +154,7 @@
       </div>
     </div>
   </div>
+
   <!--Category section-->
   <div class="category-container">
     <div class="container">
@@ -175,6 +180,8 @@
     </div>
   </div>
   <!--Post section-->
+ 
+
   <div class="post-section">
     <div class="container">
       <div class="row">

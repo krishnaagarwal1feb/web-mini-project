@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
-  <meta charset="utf-8">
   <title>Helpinghands</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +102,7 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-
+            
             <li class="nav-item">
               <a class="nav-link" href="contactus.php">Contact Us</a>
             </li>
@@ -126,7 +125,6 @@
       <div class="row">
         <div class="col-12 text-center">
           <div class="tagline">
-            <h1>Login / Register</h1>
           </div>
         </div>
       </div>
@@ -142,72 +140,76 @@
           <div class="container formcustom">
             <div class="col-sm-12 col-md-12 col-xl-10 col-lg-10 ml-auto mr-auto">
               <ul class="nav nav-pills nav-fill mb-1" id="pills-tab" role="tablist">
-                <li class="nav-item col-6">
-                  <a class="custom-button phill active" id="pills-signin-tab" data-toggle="pill"
-                     href="#pills-signin" role="tab" aria-controls="pills-signin"
-                     aria-selected="true">Login</a>
-                </li>
+                
                 <li class="nav-item col-6">
                   <a class="custom-button phill" id="pills-signup-tab" data-toggle="pill"
                      href="#pills-signup"
                      role="tab" aria-controls="pills-signup" aria-selected="false">Register</a>
                 </li>
+                <li class="nav-item col-6">
+                  <button onclick="window.location.href='login.php'" 
+                  class="custom-button phill active" id="pills-signin-tab" data-toggle="pill"
+                     href="#pills-signin" role="tab" aria-controls="pills-signin"
+                     aria-selected="true" >Login</button>
+                </li>
               </ul>
               <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-signin" role="tabpanel"
-                     aria-labelledby="pills-signin-tab">
-                  <div class="col-sm-12">
-
-                    <form method="post" id="singninFrom">
-                      <div class="form-group">
-                        <label class="font-weight-bold">Email <span class="text-danger">*</span></label>
-                        <input type="email" id="email" class="form-control" placeholder="Enter valid email"
-                               required>
-                      </div>
-                      <div class="form-group">
-                        <label class="font-weight-bold">Password <span class="text-danger">*</span></label>
-                        <input type="password" name="password" id="password" class="form-control"
-                               placeholder="***********" required>
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <label><input type="checkbox" name="condition" id="condition"> Remember me.</label>
-                          </div>
-                          <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-left text-sm-right text-lg-right text-md-right text-xl-right">
-                            <a href="javascript:;" data-toggle="modal"
-                               data-target="#forgotPass">Forgot Password?</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <input type="submit" name="submit" value="Sign In" class="custom-button">
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                
                 <div class="tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
                   <div class="col-sm-12 ">
-                    <form method="post" id="singnupFrom">
+
+                <?php
+                  require('db.php');
+                  // When form submitted, insert values into the database.
+                  if (isset($_REQUEST['username'])) {
+                      // removes backslashes
+                      $username = stripslashes($_REQUEST['username']);
+                      //escapes special characters in a string
+                      $username = mysqli_real_escape_string($con, $username);
+                      $email    = stripslashes($_REQUEST['email']);
+                      $email    = mysqli_real_escape_string($con, $email);
+                      $password = stripslashes($_REQUEST['password']);
+                      $password = mysqli_real_escape_string($con, $password);
+                      $phone = stripslashes($_REQUEST['phone']);
+                      $phone  = mysqli_real_escape_string($con, $phone);
+                      $create_datetime = date("Y-m-d H:i:s");
+                      $query    = "INSERT into `users` (phone, username , password,email,  create_datetime)
+                                  VALUES ('$phone','$username', '" . md5($password) . "', '$email', '$create_datetime')";
+                      $result   = mysqli_query($con, $query);
+                      if ($result) {
+                          echo "<div class='form'>
+                                <h3>You are registered successfully.</h3><br/>
+                                <p class='link'>Click here to <a href='login.php'>Login</a></p>
+                                </div>";
+                      } else {
+                          echo "<div class='form'>
+                                <h3>Required fields are missing.</h3><br/>
+                                <p class='link'>Click here to <a href='registration.php'>registration</a> again.</p>
+                                </div>";
+                      }
+                  } else {
+                ?>
+
+                    <form method="post" id="singnupFrom" action="">
                       <div class="form-group">
                         <label class="font-weight-bold">Email <span class="text-danger">*</span></label>
-                        <input type="email" id="signupemail" class="form-control"
+                        <input type="email" id="signupemail" class="form-control" name="email"
                                placeholder="Enter valid email" required>
                       </div>
                       <div class="form-group">
                         <label class="font-weight-bold">User Name <span class="text-danger">*</span></label>
                         <input type="text"  id="signupusername" class="form-control"
-                               placeholder="Choose your user name" required>
+                               name="username" placeholder="Choose your user name" required>
                         <div class="text-danger"><em>This will be your login name!</em></div>
                       </div>
                       <div class="form-group">
                         <label class="font-weight-bold">Phone #</label>
-                        <input type="text" id="signupphone" class="form-control"
+                        <input type="text" id="signupphone" class="form-control" name="phone"
                                placeholder="(000)-(0000000)">
                       </div>
                       <div class="form-group">
                         <label class="font-weight-bold">Password <span class="text-danger">*</span></label>
-                        <input type="password" id="signuppassword" class="form-control"
+                        <input type="password" id="signuppassword" class="form-control" name="password"
                                placeholder="***********" pattern="^\S{6,}$"
                                onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"
                                required>
@@ -224,9 +226,12 @@
                           the <a href="javascript:;">Terms &amp; Conditions</a> for Registration.</label>
                       </div>
                       <div class="form-group">
-                        <input type="submit" name="signupsubmit" value="Sign Up" class="custom-button">
+                        <input type="submit" name="submit" value="Register" class="custom-button">
                       </div>
                     </form>
+                    <?php
+    }
+?>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
-  <meta charset="utf-8">
   <title>Helpinghands</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -124,6 +123,8 @@
     <img src="img/cover.jpg" class="bannercoveruser" alt="banner">
 
   </div>
+
+    
   <!--Post section-->
   <div class="post-section blog">
     <div class="container">
@@ -137,7 +138,7 @@
             <div class="admin-box">
               <div class="user">
                 <div class="username colorcodebage">
-                  <h3>Krishna</h3>
+                  <h3 id="user_place"></h3>
 
                 </div>
               </div>
@@ -330,6 +331,10 @@
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById("user_place").innerHTML = (localStorage.getItem('username'));
+</script>
 <script src="js/vendor/jquery-3.4.1.min.js"></script>
 <script src="js/vendor/bootstrap.min.js"></script>
 <script src="js/main.js"></script>

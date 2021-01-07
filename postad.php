@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
-  <meta charset="utf-8">
   <title>Helpinghands</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -142,7 +141,7 @@
                       <div class="admin-box">
                         <div class="user">
                           <div class="username colorcodebage">
-                            <h3>Krishna</h3>
+                          <h3 id="user_place"></h3>
 
                           </div>
                         </div>
@@ -179,17 +178,62 @@
                   </div>
                   <div class="col-lg-9">
                     <div class="col-sm-12 background_white">
+
+    <?php
+    require('db.php');
+    // When form submitted, insert values into the database.
+    if (isset($_REQUEST['title'])) {
+       
+        ob_start();
+        echo "<script type='text/javascript'> localStorage.getItem('userid');</script>";
+        $userid = ob_get_contents();
+        ob_end_clean();
+
+        $userid = stripslashes($userid);
+        $userid = mysqli_real_escape_string($con, $userid);
+        $userid = 1;
+        $title =  stripslashes($_REQUEST['title']);
+        $title  = mysqli_real_escape_string($con, $title);
+
+
+        $cat =  stripslashes($_REQUEST['category']);
+        $cat  = mysqli_real_escape_string($con, $cat);
+        
+        $loc =  stripslashes($_REQUEST['location']);
+        $loc  = mysqli_real_escape_string($con, $loc);
+
+
+        $desc =  stripslashes($_REQUEST['description']);
+        $desc  = mysqli_real_escape_string($con, $desc);
+
+        $query    = "INSERT into `ADS` (id, title , category ,location, description)
+                     VALUES ('$userid','$title','$cat','$loc','$desc')";
+        $result   = mysqli_query($con, $query);
+        if ($result) {
+              
+            echo "<div class='form'>
+                  <h3>Your ad is posted sucessfully.</h3><br/>
+                  <p class='link'>Click here to <a href='myads.php'>Login</a></p>
+                  </div>";
+        } else {
+            echo "<div class='form'>
+                  <h3>Required fields are missing.</h3><br/>
+                  ". $query ."<p class='link'>Click here to <a href='postad.php'>POST AD</a> again.</p>
+                  </div>";
+        }
+    } else {
+?>
                       <form method="post" class="row">
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-12">
                           <div class="form-group ">
                             <label class="font-weight-bold">Ad title</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="title">
                           </div>
                         </div>
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-12 ">
                           <div class="form-group ">
                             <label class="font-weight-bold">Select Category</label>
-                            <select class="form-control">
+                            <select class="form-control" name="category">
                               <option>Blanket</option>
                               <option>Woolen</option>
                               <option>Scarfs</option>
@@ -201,7 +245,7 @@
                         <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 col-12 ">
                           <div class="form-group ">
                             <label class="font-weight-bold">Select Location </label>
-                            <select class="form-control">
+                            <select class="form-control" name="location">
                               <option>Electronic city</option>
                               <option>Konappana Agrahara</option>
                               <option>MG road</option>
@@ -220,16 +264,19 @@
                         <div class="col-md-12 col-xl-12 col-lg-12 col-sm-12 col-12 ">
                           <div class="form-group ">
                             <label class="font-weight-bold ">Description</label>
-                            <textarea cols="50"
+                            <textarea cols="50" name="description"
                                       class=" sizetextarea col-md-12 col-xl-12 col-lg-12 col-sm-12 col-12"></textarea>
                           </div>
                         </div>
                         <div class="col-md-12 col-xl-12 col-lg-12 col-sm-12 col-12 ">
                           <div class="form-group ">
-                            <input type="submit" value="Update" class="custom-button">
+                            <input type="submit" value="Update" class="custom-button" name="submit">
                           </div>
                         </div>
                       </form>
+                <?php
+                 } 
+                ?>
                     </div>
                   </div>
                 </div>
@@ -322,6 +369,10 @@
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById("user_place").innerHTML = (localStorage.getItem('username'));
+</script>
 <script src="js/vendor/jquery-3.4.1.min.js"></script>
 <script src="js/vendor/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
