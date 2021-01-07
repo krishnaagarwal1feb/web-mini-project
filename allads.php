@@ -192,7 +192,7 @@
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 margin_10px">
               <div class="post-box">
                 <div class="thumbnail-holder">
-                  <a href="#">
+                  <a href="product.php">
                     <img src="img/jacket1.jpg" alt="Jackets">
                   </a>
                 </div>
@@ -200,10 +200,10 @@
                   <h3><a href="product.php">jackets ....</a></h3>
     
                   <div class="post-category">
-                    <a href="#"> <i class="fa fa-list-alt"></i> Woolen</a>
+                    <a href="product.php"> <i class="fa fa-list-alt"></i> Woolen</a>
                   </div>
                   <div class="post-location">
-                    <a href="#"> <i class="fa fa-location-arrow"></i> Electronic city</a>
+                    <a href="product.php"> <i class="fa fa-location-arrow"></i> Electronic city</a>
                   </div>
                   <div class="post-meta">
                     </div>
@@ -214,7 +214,7 @@
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 margin_10px">
               <div class="post-box">
                 <div class="thumbnail-holder">
-                  <a href="#">
+                  <a href="product.php">
                     <img src="img/quilt.jpg" alt="Blanket">
                   </a>
                 </div>

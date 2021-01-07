@@ -184,14 +184,11 @@
     // When form submitted, insert values into the database.
     if (isset($_REQUEST['title'])) {
        
-        ob_start();
-        echo "<script type='text/javascript'> localStorage.getItem('userid');</script>";
-        $userid = ob_get_contents();
-        ob_end_clean();
+        $userid = 2;
 
-        $userid = stripslashes($userid);
-        $userid = mysqli_real_escape_string($con, $userid);
-        $userid = 1;
+      //  $userid = stripslashes($userid);
+       // $userid = mysqli_real_escape_string($con, $userid);
+        
         $title =  stripslashes($_REQUEST['title']);
         $title  = mysqli_real_escape_string($con, $title);
 
@@ -213,7 +210,7 @@
               
             echo "<div class='form'>
                   <h3>Your ad is posted sucessfully.</h3><br/>
-                  <p class='link'>Click here to <a href='myads.php'>Login</a></p>
+                  <p class='link'>View all ads <a href='myads.php'>here</a></p>
                   </div>";
         } else {
             echo "<div class='form'>
@@ -372,6 +369,10 @@
 
 <script>
   document.getElementById("user_place").innerHTML = (localStorage.getItem('username'));
+  var user_id = localStorage.getItem("userid");
+  $.POST('myads.php', {'userid' : user_id}, function(data){
+  alert('we have the user id ');
+}
 </script>
 <script src="js/vendor/jquery-3.4.1.min.js"></script>
 <script src="js/vendor/bootstrap.min.js"></script>

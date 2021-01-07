@@ -124,7 +124,7 @@
 
   </div>
 
-    
+
   <!--Post section-->
   <div class="post-section blog">
     <div class="container">
@@ -173,12 +173,19 @@
             </div>
           </div>
         </div>
+
+
         <div class="col-lg-9">
           <div class="row">
             <div class="col-xl-12 col-lg-12">
               <div class="row margin_10px">
                 <div class="zeropadd col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                  <p>1 ad(s) by <strong>Krishna Agarwal</strong></p>
+                  <?php
+                  require('db.php');
+                  $query = "select * from ADS";
+                  echo "<p>" . mysqli_num_rows(mysqli_query($con,$query))."</p>";
+                      ?>
+                   <p>ad(s) by <strong> <div id="user_name"> Krishna </div></strong></p>
                 </div>
                 <div class=" zeropadd col-sm-12 col-md-6 col-lg-6 col-xl-6">
                   <div class="widget widget_search">
@@ -192,6 +199,9 @@
               </div>
 
             </div>
+
+
+
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 margin_10px">
               <div class="wrappingrow borderingnew d-sm-none d-xl-block d-lg-block d-md-none d-none">
                 <div class="row cardtag">
@@ -202,28 +212,49 @@
                   <div class="col-2">Action</div>
                 </div>
               </div>
-              <div class="wrappingrow">
-                <div class="row cardtag">
-                  <div
-                      class="col-12 col-sm-12 col-lg-4 col-xl-4 text-sm-center text-center text-md-center text-lg-left col-4 margintadjst">
-                      Blanket
-                    </div>
-                  <div class="col-6 col-sm-3  col-lg-2 col-xl-2">
-                    <img alt="image" src="img/blanket.jpg"/>
-                  </div>
-                  <div class="col-6 col-sm-3 col-lg-2 col-xl-2 margintadjst"><i class="fa fa-list-alt"></i>Woolen</div>
-                  <div class="col-6 col-sm-3 col-lg-2 col-xl-2 margintadjst"><i class="fa fa-star"></i>Active</div>
-                  <div class="col-6 col-sm-3 col-lg-2 col-xl-2 margintadjst">
-                    <div class="btns-actions">
-                      <a class="btn-action btn-view" href="#"><i class="fa fa-eye"></i> 46 </a>
-                      <a class="btn-action btn-edit" href="#"><i class="fa fa-pencil"></i> Edit</a>
-                      <a class="btn-action btn-delete" href="#"><i class="fa fa-trash"></i> Delete</a>
-                    </div>
-                  </div>
+              
+            <div class="wrappingrow">
+              <div class="row cardtag">
+                
+              <?php
+                  require('db.php');
+                    $userid = 1;
+                    $sql = "SELECT title, category FROM `ADS` WHERE id = ". $userid. ";";
+                    $result = mysqli_query($con, $sql);
+                    while($row = $result->fetch_assoc()) 
+                  {
+                    $cat  = $row["category"];
+                    $title = $row["title"];
+                    echo '
+                    <div
+                          class="col-12 col-sm-12 col-lg-4 col-xl-4 text-sm-center text-center text-md-center text-lg-left col-4 margintadjst">
+                          '.$title.'
+                        </div>
+                      <div class="col-6 col-sm-3  col-lg-2 col-xl-2">
+                        <div class = "itemImage"> </div>
+                      </div>
+                      <div class="col-6 col-sm-3 col-lg-2 col-xl-2 margintadjst"><i class="fa fa-list-alt"></i>'.$cat.'</div>
+                      <div class="col-6 col-sm-3 col-lg-2 col-xl-2 margintadjst"><i class="fa fa-star"></i>Active</div>
+                      <div class="col-6 col-sm-3 col-lg-2 col-xl-2 margintadjst">
+                        <div class="btns-actions">
+                          <a class="btn-action btn-view" href="#"><i class="fa fa-eye"></i> '.rand(10,100).' </a>
+                          <a class="btn-action btn-edit" href="#"><i class="fa fa-pencil"></i> Edit</a>
+                          <a class="btn-action btn-delete" href="#"><i class="fa fa-trash"></i> Delete</a>
+                        </div>
+                     </div>
+                     ';
+                  }
+               ?>
+                
                 </div>
+                
+
               </div>
 
             </div>
+            
+          
+                   
           </div>
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 margin_10px">
             <nav aria-label="Page navigation">
@@ -333,7 +364,20 @@
 </footer>
 
 <script>
+function renderItem(item){
+  fetch(`https://source.unsplash.com/1600x900/?woolen_clothes`).then((response) => {   
+    item.innerHTML = `<img class="woolen" src="${response.url}" alt="clothes image"/>`     
+  }) 
+}
   document.getElementById("user_place").innerHTML = (localStorage.getItem('username'));
+  document.getElementById("user_name").innerHTML = (localStorage.getItem('username'));
+  document.getElementById("user_name").style.fontWeight = "bold";
+  var imgs = document.getElementsByClassName('itemImage')
+  for(var i=0 ; i<imgs.length; i++)
+  {
+    renderItem(imgs[i]);
+  }
+  
 </script>
 <script src="js/vendor/jquery-3.4.1.min.js"></script>
 <script src="js/vendor/bootstrap.min.js"></script>
