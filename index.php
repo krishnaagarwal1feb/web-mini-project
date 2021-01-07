@@ -54,7 +54,13 @@
 <p>You are logged in as: </p>
 <strong><?php echo "<script type='text/javascript'> document.write(localStorage.getItem('username')); </script>";?></strong>
 <header class="background-header">
-
+<div style="float:right">
+<form align="right" name="form1" method="post" action="logout.php">
+  <label class="logoutLblPos">
+  <input name="submit2" type="submit" id="submit2" value="log out">
+  </label>
+</form>
+</div>
   <div class="topbar">
     <div class="container">
       <div class="row">

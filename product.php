@@ -155,7 +155,7 @@
       </div>
       <div class="row">
         <div class="col-lg-8 col-md-12 col-xs-12">
-            
+              
         </div>
         <div class="col-lg-4 col-md-12 col-xs-12 first-height">
           <div class="boxwedigt margin_10px ">
